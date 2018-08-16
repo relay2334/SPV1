@@ -4,9 +4,9 @@ After=mariadb.service
 
 [Service]
 Restart=always
-WorkingDirectory=/opt/dofler
+WorkingDirectory=/opt/WallOfSheep
 Environment=NODE_ENV=production
-ExecStart=/root/.nvm/current/bin/node /opt/dofler/server.js
+ExecStart=/root/.nvm/current/bin/node /opt/WallOfSheep/server.js
 
 [Install]
 WantedBy=multi-user.target
