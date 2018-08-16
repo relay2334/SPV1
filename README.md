@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This version of the "Wall of Sheep" is based off of Steve McGrath's DoFler (Dashboard Of Fail). The Dofler is Node.js front-end web server displaying data from multiple different network sniffing and analysis tools.
+This version of the "Wall of Sheep" is based off of Steve McGrath's DoFler (Dashboard Of Fail). The Wall of Sheep is Node.js front-end web server displaying data from multiple different network sniffing and analysis tools.
 
 ## Sniffing Tools
 
@@ -13,7 +13,7 @@ Although you can enable and disable all tools from the config file, by default i
 * tshark
 * driftnet
 
-The DoFler Setup is also able to utilize Tenable's PVS via API calls, but it is disabled by default as it connects to a external service.
+The Wall of Sheep Setup is also able to utilize Tenable's PVS via API calls, but it is disabled by default as it connects to a external service.
 
 ## Quick Start
 
@@ -39,7 +39,7 @@ cp driftnet /usr/local/bin;cp driftnet.1 /usr/local/share/man/man1
 ````
 
 
-For the database backend, DoFler supports MySQL, and Postgres.  For the purposes of this guide, we will cover MariaDB.
+For the database backend, The Wall of Sheep supports MySQL, and Postgres.  For the purposes of this guide, we will cover MariaDB.
 
 ````
 # Install the binaries
@@ -50,26 +50,26 @@ mysql_secure_installation
 # Create a new root password
 
 # Create the database 
-mysqladmin -uroot -p create dofler 
+mysqladmin -uroot -p create sheep 
 # When prompted enter the root password you created above
 
-# Create the MySQL dofler user 
+# Create the MySQL sheep user 
 mysql -uroot -p
 # When prompted enter the root password you created above
 
-# Replace NEW_PASSWORD with the password for your dofler user
-# By Default it is 'dofler' in the config file
-> GRANT ALL PRIVILEGES ON dofler.* TO 'dofler'@'localhost' IDENTIFIED BY 'NEW_PASSWORD';
+# Replace NEW_PASSWORD with the password for your sheep user
+# By Default it is 'sheep' in the config file
+> GRANT ALL PRIVILEGES ON sheep.* TO 'sheep'@'localhost' IDENTIFIED BY 'NEW_PASSWORD';
 > exit 
 ````
 
 I would recommend installing Node.js as root because the server will need to be run as root to capture packets. Install Node.js using the tutorial that Digital Ocean provides [HERE](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-an-ubuntu-14-04-server#how-to-install-using-nvm).
 
-Once you have Node.JS installed and the pre-requisites, you simply need to download the repository and then run npm to install the needed libraries to get dofler into a runnable state.
+Once you have Node.JS installed and the pre-requisites, you simply need to download the repository and then run npm to install the needed libraries to get the Wall of Sheep into a runnable state.
 
 ````
 cd /opt 
-git clone https://github.com/electroman5/WallOfSheep.git
+git clone https://github.com/relay2334/WallOfSheep.git
 cd WallOfSheep 
 npm install ./
 ````
@@ -88,7 +88,7 @@ The values that need to be changed are:
 
 * The Database URI: 
 
-     Change ````"mysql://dofler:dofler@localhost/dofler"```` to ````"mysql://dofler:dofler@localhost/*Dofler_Password*",````
+     Change ````"mysql://sheep:sheep@localhost/sheep"```` to ````"mysql://sheep:sheep@localhost/*sheep_Password*",````
 
 * The Monitering interface:
 
@@ -108,7 +108,7 @@ There is a simple way to sniff multiple networks using the Wall Of Sheep. To sni
 
 ````
 cd /opt 
-git clone https://github.com/electroman5/WallOfSheep.git WOS
+git clone https://github.com/relay2334/WallOfSheep.git WOS
 cd WOS
 npm install ./
 ````
@@ -125,7 +125,7 @@ In the config file set:
 
 Change  ````"interface": "eth1",````  to  ````"interface": "*Monitering Interface*",````
 
-Change  ````"mysql://dofler:dofler@localhost/dofler"````  to  ````"mysql://dofler:dofler@localhost/*Dofler_Password*",````
+Change  ````"mysql://sheep:sheep@localhost/sheep"````  to  ````"mysql://sheep:sheep@localhost/*Sheep_Password*",````
 
 Change  ````"port": 3000,````  to  ````"port": 0,````
 
