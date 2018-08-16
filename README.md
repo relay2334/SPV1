@@ -4,7 +4,7 @@
 
 This version of the "Wall of Sheep" is based off of Steve McGrath's DoFler (Dashboard Of Fail). The Dofler is Node.js front-end web server displaying data from multiple different network sniffing and analysis tools.
 
-## Installation
+## Sniffing Tools
 
 Although you can enable and disable all tools from the config file, by default it uses the folllowing tools:
 
@@ -124,5 +124,10 @@ In the config file set:
 * The database credentials to what you configured earlier. 
 
 Change  ````"interface": "eth1",````  to  ````"interface": "*Monitering Interface*",````
+
 Change  ````"mysql://dofler:dofler@localhost/dofler"````  to  ````"mysql://dofler:dofler@localhost/*Dofler_Password*",````
+
 Change  ````"port": 3000,````  to  ````"port": 3000,````
+
+Then start the server using ./server.js and all traffic sniffed from this interface will be saved to the database displayed on the primary web server running on port 3000.
+
