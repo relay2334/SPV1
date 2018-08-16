@@ -1,17 +1,20 @@
 {
-  "name": "dofler",
-  "version": "5.0.1",
-  "author": "Steven McGrath <steve@chigeek.com>",
+  "name": "Wall Of Sheep",
+  "version": "1.2",
+  "author": "Alec Sudol",
   "homepage": "http://dofler.net",
   "repository": {
     "type": "git",
-    "url": "https://github.com/SteveMcGrath/DoFler"
+    "url": "https://github.com/relay2334/WallOfSheep"
   },
   "bugs": {
-    "url": "https://github.com/SteveMcGrath/DoFler/issues"
+    "url": "https://github.com/relay2334/WallOfSheep/issues"
   },
   "keywords": [
-    "dofler",
+    "WallOfSheep",
+    "Sheep",
+    "Wall",
+    "sniffing",
     "ettercap",
     "dsniff",
     "ngrep",
@@ -26,7 +29,7 @@
   "directories": {
     "lib": "./lib"
   },
-  "description": "Dashboard of Fail network monitoring and presentation application",
+  "description": "Wall of Sheep network monitoring and presentation application",
   "dependencies": {
     "async": "^2.0.0-rc.2",
     "base64-img": "^1.0.3",
