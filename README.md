@@ -39,7 +39,7 @@ cp driftnet /usr/local/bin;cp driftnet.1 /usr/local/share/man/man1
 ````
 
 
-For the database backend, DoFler supports MySQL, and Postgres.  For the purposes of this guide, we will cover MariaDB on Ubuntu.
+For the database backend, DoFler supports MySQL, and Postgres.  For the purposes of this guide, we will cover MariaDB.
 
 ````
 # Install the binaries
@@ -56,6 +56,7 @@ mysqladmin -uroot -p create dofler
 # Create the MySQL dofler user 
 mysql -uroot -p
 # When prompted enter the root password you created above
+
 # Replace NEW_PASSWORD with the password for your dofler user
 # By Default it is 'dofler' in the config file
 > GRANT ALL PRIVILEGES ON dofler.* TO 'dofler'@'localhost' IDENTIFIED BY 'NEW_PASSWORD';
@@ -69,11 +70,11 @@ Once you have Node.JS installed and the pre-requisites, you simply need to downl
 ````
 cd /opt 
 git clone https://github.com/electroman5/WallOfSheep.git
-cd dofler 
+cd WallOfSheep 
 npm install ./
 ````
 
-As we are using MySQL/MariaDB, we do have to install the appropriate Node.JS database interface library.  To do so, we will do this: 
+Install the appropriate Node.JS database interface library: 
 
 ````
 npm install mysql 
@@ -87,7 +88,7 @@ The values that need to be changed are:
 
 * The Database URI: 
 
-     Change ````"mysql://dofler:dofler@localhost/dofler"```` to ````"mysql://dofler:dofler@localhost/*Dofler Password*",````
+     Change ````"mysql://dofler:dofler@localhost/dofler"```` to ````"mysql://dofler:dofler@localhost/*Dofler_Password*",````
 
 * The Monitering interface:
 
@@ -101,3 +102,27 @@ At this point the server should be ready to run. Start the server using the comm
 
 You should see the console output of the network sniffers and web server starting. The default port the Wall of Sheep listens on is port 3000, so connect your browser to http://localhost:3000 and you should be good to go!
 
+## Sniff Multiple Networks
+
+There is a simple way to sniff multiple networks using the Wall Of Sheep. To sniff on multiple interfaces simply clone this repository to another directory using:
+
+````
+cd /opt 
+git clone https://github.com/electroman5/WallOfSheep.git WOS
+cd WOS
+npm install ./
+````
+Then navigate to that repository's config file:
+
+````
+sudo nano config/default.json
+````
+
+In the config file set: 
+* The monitering interface to reflect the network interface you want to use.
+* The web server port to either 0, so that it is dynamically assigned to a random port, or any other port you are not currently using.
+* The database credentials to what you configured earlier. 
+
+Change  ````"interface": "eth1",````  to  ````"interface": "*Monitering Interface*",````
+Change  ````"mysql://dofler:dofler@localhost/dofler"````  to  ````"mysql://dofler:dofler@localhost/*Dofler_Password*",````
+Change  ````"port": 3000,````  to  ````"port": 3000,````
