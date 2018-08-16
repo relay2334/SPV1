@@ -4,7 +4,7 @@
 		"slogan": "Example Slogan"
 	},
 	"Database": {
-		"uri": "mysql://dofler:dofler@localhost/dofler",
+		"uri": "mysql://sheep:sheep@localhost/sheep",
 		"logging": false
 	},
 	"AppServer": {
