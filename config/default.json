@@ -20,7 +20,7 @@
 	"Monitoring": {
 		"interface": "eth1",
 		"Driftnet": {
-			"autostart": false,
+			"autostart": true,
 			"tmp": "/tmp/driftnet",
 			"nsfw_filter": true
 		},
