@@ -118,8 +118,8 @@ function displayAccount(account, clip=true) {
 
 
 function renderAccountList() {
-	if (accounts.length > 5) {
-		for (var i in accounts.slice(0,5)) {displayAccount(accounts[i])}
+	if (accounts.length > 10) {
+		for (var i in accounts.slice(0,10)) {displayAccount(accounts[i])}
 	} else {
 		for (var i in accounts) {displayAccount(accounts[i])}
 	}
@@ -127,10 +127,10 @@ function renderAccountList() {
 
 
 function accountCycle() {
-	if (accounts.length > 5) {
+	if (accounts.length > 10) {
 		// If this is the first time the accounts have gone above 5, then we will
 		// need to set the initial value.
-		if (account_id == null) {account_id = 5;}
+		if (account_id == null) {account_id = 10;}
 
 		// Increment the account_id counter.
 		account_id++;
