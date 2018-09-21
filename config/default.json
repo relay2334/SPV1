@@ -3,6 +3,16 @@
 		"title": "ExampleCon",
 		"slogan": "Example Slogan"
 	},
+	"Hotspot": {
+		"ssid": "ShepardsPi",
+		"key": "SHEPARDSPI"
+	},
+	"Airmon": {
+		"interface": "wlan0",
+		"airodump_autostart": true,
+		"save_handshakes": true,
+		"handshake_path": "/tmp/WallOfSheep/handshakes"
+	}
 	"Database": {
 		"uri": "mysql://sheep:sheep@localhost/sheep",
 		"logging": false
@@ -21,7 +31,7 @@
 		"interface": "eth1",
 		"Driftnet": {
 			"autostart": true,
-			"tmp": "/tmp/driftnet",
+			"tmp": "/tmp/WallOfSheep/driftnet",
 			"nsfw_filter": true
 		},
 		"TShark": {
