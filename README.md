@@ -4,6 +4,10 @@
 
 Shepards Pi is a spin off of the Wall of Sheep project to create a localized wireless sniffing tool.
 
+## Interface
+
+The proper implementation of Shepards Pi is to connect the to the network you want to sniff over ethernet, sniff wireless networks with a external wireless adaptor and connect to the web interface through the hotspot created with the onboard card.
+
 ## Sniffing Tools
 
 Although you can enable and disable all tools from the config file, by default it uses the folllowing tools:
