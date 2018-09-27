@@ -151,6 +151,63 @@ function accountCycle() {
 	}
 }
 
+//Start of new network segment---------------------------------------------------------------
+
+function displayNetwork(network, clip=true) {
+	$('#network-total').html(networks.length);
+
+	$('#network-list > tbody').append(
+		'<tr class="network-entry"><td>' +
+		S(network.essid || '').escapeHTML().substring(0,15) 	+ '</td><td>' +
+		S(network.auth || '').escapeHTML()		 	+ '</td><td>' +
+		S(network.channel || '').escapeHTML() 			+ '</td><td>' +
+		S(network.firstSeen || '').escapeHTML()		 	+ '</td><td>' +
+		S(network.lastSeen || '').escapeHTML()		 	+ '</td><td>' +
+		S(network.power || '').escapeHTML()		 	+ '</td><td>' +
+		S(network.bssid || '').escapeHTML().substring(0,15) 	+ '</td></tr>'
+	);
+}
+
+
+function renderNetworkList() {
+	if (networks.length > 10) {
+		for (var i in networks.slice(0,10)) {displayNetwork(networks[i])}
+	} else {
+		for (var i in networks) {displayNetwork(networks[i])}
+	}
+}
+
+
+function NetworkCycle() {
+	if (networks.length > 10) {
+		// If this is the first time the accounts have gone above 5, then we will
+		// need to set the initial value.
+		if (network_id == null) {network_id = 10;}
+
+		// Increment the account_id counter.
+		network_id++;
+
+		// If the account_id counter exceeds the number of elements in the
+		// accounts array, then we will need to rotate the id to the 
+		// beginning of the array.
+		if (network_id > networks.length - 1) {
+			network_id = network_id - networks.length;
+		}
+		console.log(network_id)
+
+		//TODO - Find way to display priority network
+		//Network with firstSeen and lastSeen values with 1 day of eachother
+		//Use HTML Styling?
+		
+		// Now to remove the first entry and add the last entry into the
+		// user view.
+		$('.network-entry:first').remove();
+		displayNetwork(networks[network_id]);
+		console.log(networks[network_id]);
+	}
+}
+
+//end-------------------------------
 
 function report() {
 	$(document).ready(function () {
@@ -178,6 +235,10 @@ function display() {
 
 	socket.on('accounts', function(account) {
 		accounts.push(account);
+	})
+	
+	socket.on('networks', function(network) {
+		accounts.push(network);
 	})
 
 
