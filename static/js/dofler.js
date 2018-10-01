@@ -238,7 +238,7 @@ function display() {
 	})
 	
 	socket.on('networks', function(network) {
-		accounts.push(network);
+		networks.push(network);
 	})
 
 
@@ -269,6 +269,10 @@ function display() {
 		});
 		$.getJSON('/vulns/hosts', function(data) {hostVulnList(data)});
 		$.getJSON('/vulns/vulns', function(data) {topVulnsList(data)});
+		$.getJSON('/networks/list', function(networks_list) { 
+                        networks = networks_list; 
+                        renderNetworkList(); 
+                });
 		protoRefresh();
 		setInterval(accountCycle, 1000);
 	})
