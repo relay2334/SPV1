@@ -11,7 +11,7 @@ html(lang="en")
 			div.container
 				div.navbar-header
 					img(src="/static/img/logo.png")
-					span#version v#{version} | Wall of Sheep
+					span#version v#{version} | ShepardsPi
 					button(class="navbar-toggle", type="button", data-toggle="collapse", data-target="#navbar-main")
 						span.icon-bar
 						span.icon-bar
@@ -28,9 +28,9 @@ html(lang="en")
 								li
 									a(href="#" onclick="$('#accounts-wrapper').toggle();") Toggle Accounts
 								li
-									a(href="#" onclick="$('#host-vulns-wrapper').toggle();") Toggle Top Hosts
+									a(href="#" onclick="$('#hosts-wrapper').toggle();") Toggle Top Hosts
 								li
-									a(href="#" onclick="$('#top-vulns-wrapper').toggle();") Toggle Top Vulns
+									a(href="#" onclick="$('#networks-wrapper').toggle();") Toggle Wireless Networks
 								li
 									a(href="#" onclick="$('#stats-wrapper').toggle();") Toggle Network Stats
 								li.divider
@@ -57,17 +57,19 @@ html(lang="en")
 					div.panel-body
 						table#accounts-list.table
 							tbody
-				div(id="host-vulns-wrapper", class=["panel", "panel-primary"])
+				div(id="hosts-wrapper", class=["panel", "panel-primary"])
 					div.panel-heading
-						h3.panel-title Top Vulnerable Hosts
+						h3.panel-title Network Hosts
 					div.panel-body
-						table#top-vulnerable-hosts
+						table#network-hosts
 							tbody
-				div(id="top-vulns-wrapper", class=["panel", "panel-primary"])
+				div(id="networks-wrapper", class=["panel", "panel-primary"])
 					div.panel-heading
-						h3.panel-title Top Vulnerabilities
+						h3.panel-title Networks
+							span#account-total.pull-right 0
 					div.panel-body
-						ul#top-vulnerabilities.list-group
+						table#networks-list.table
+							tbody
 				div(id="stats-wrapper", class=["panel", "panel-primary"])
 					div.panel-heading
 						h3.panel-title Network Stats
