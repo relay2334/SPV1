@@ -1,4 +1,5 @@
 var accounts = [];
+var networks = [];
 var account_id = null;
 var socket = io();
 var flagged_images = [];
@@ -40,7 +41,7 @@ function removeImage(filename) {
 
 function hostVulnList(data) {
 	// Empty the table in preperation for the the new information
-	$('#top-vulnerable-hosts > tbody').empty();
+	$('#network-hosts > tbody').empty();
 
 	// A simple function to get the percentage of the maximum number
 	// of severities that the current severity specified is.
@@ -50,7 +51,7 @@ function hostVulnList(data) {
 
 	// Lets actually draw the information on to the screen.
 	$.each(data['hosts'], function(i, val) {
-		$('#top-vulnerable-hosts > tbody').append( 
+		$('#network-hosts > tbody').append( 
 			'<tr><td class="host-cell">' + val.host + '</td><td><div class="vuln-candy-bar">' +
 			'<div class="v-crit" style="width:' + getPercent(val.crit) + '%;"></div>' +
 			'<div class="v-high" style="width:' + getPercent(val.high) + '%;"></div>' +
@@ -64,12 +65,12 @@ function hostVulnList(data) {
 
 function topVulnsList(data) {
 	// Empty the list in preperation for the the new information
-	$('#top-vulnerabilities').empty();
+	$('#networks').empty();
 
 	var crits = ['info', 'low', 'med', 'high', 'crit'];
 
 	$.each(data, function(i, val) {
-		$('#top-vulnerabilities').append(
+		$('#networks').append(
 			'<li class="list-group-item vulnerability">' + val.name + '<span class="vuln-badge badge">' + val.count + '</span></li>'
 		);
 	});
