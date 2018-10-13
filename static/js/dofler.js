@@ -1,4 +1,5 @@
 var accounts = [];
+var networks = [];
 var account_id = null;
 var socket = io();
 var flagged_images = [];
