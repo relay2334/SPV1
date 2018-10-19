@@ -60,13 +60,14 @@ html(lang="en")
 				div(id="hosts-wrapper", class=["panel", "panel-primary"])
 					div.panel-heading
 						h3.panel-title Network Hosts
+							span#host-total.pull-right 0
 					div.panel-body
-						table#network-hosts
+						table#network-hosts.table
 							tbody
 				div(id="networks-wrapper", class=["panel", "panel-primary"])
 					div.panel-heading
 						h3.panel-title Networks
-							span#account-total.pull-right 0
+							span#network-total.pull-right 0
 					div.panel-body
 						table#networks-list.table
 							tbody
