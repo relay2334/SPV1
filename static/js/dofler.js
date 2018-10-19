@@ -1,5 +1,6 @@
 var accounts = [];
 var networks = [];
+var hosts = [];
 var account_id = null;
 var socket = io();
 var flagged_images = [];
@@ -39,46 +40,70 @@ function removeImage(filename) {
 }
 
 
-function hostVulnList(data) {
-	// Empty the table in preperation for the the new information
-	$('#network-hosts > tbody').empty();
+function displayHost(host, clip=true) {
+	$('#host-total').html(hosts.length);
 
-	// A simple function to get the percentage of the maximum number
-	// of severities that the current severity specified is.
-	function getPercent(value) {
-		return ((value / data['max'] * 100) - 0.1).toFixed(1);
+	$('#host-list > tbody').append(
+		'<tr class="host-entry"><td>' +
+		S(host.name || '').escapeHTML().substring(0,15) 	+ '</td><td>' +
+		S(host.ip || '').escapeHTML()		 		+ '</td><td>' +
+		S(host.ports || '').escapeHTML() 			+ '</td><td>' +
+		S(host.date || '').escapeHTML()		 	+ '</td></tr>'
+	);
+}
+
+
+function renderHostList() {
+	if (hosts.length > 10) {
+		for (var i in hosts.slice(0,10)) {displayHost(hosts[i])}
+	} else {
+		for (var i in hosts) {displayHost(hosts[i])}
 	}
-
-	// Lets actually draw the information on to the screen.
-	$.each(data['hosts'], function(i, val) {
-		$('#network-hosts > tbody').append( 
-			'<tr><td class="host-cell">' + val.host + '</td><td><div class="vuln-candy-bar">' +
-			'<div class="v-crit" style="width:' + getPercent(val.crit) + '%;"></div>' +
-			'<div class="v-high" style="width:' + getPercent(val.high) + '%;"></div>' +
-			'<div class="v-med" style="width:' + getPercent(val.med) + '%;"></div>' +
-			'<div class="v-low" style="width:' + getPercent(val.low) + '%;"></div>' +
-			'</div></td></tr>'
-		);
-	});
 }
 
 
-function topVulnsList(data) {
-	// Empty the list in preperation for the the new information
-	$('#networks').empty();
+function HostCycle() {
+	if (hosts.length > 10) {
+		// If this is the first time the accounts have gone above 5, then we will
+		// need to set the initial value.
+		if (host_id == null) {host_id = 10;}
 
-	var crits = ['info', 'low', 'med', 'high', 'crit'];
+		// Increment the account_id counter.
+		host_id++;
 
-	$.each(data, function(i, val) {
-		$('#networks').append(
-			'<li class="list-group-item vulnerability">' + val.name + '<span class="vuln-badge badge">' + val.count + '</span></li>'
-		);
-	});
+		// If the account_id counter exceeds the number of elements in the
+		// accounts array, then we will need to rotate the id to the 
+		// beginning of the array.
+		if (host_id > hosts.length - 1) {
+			host_id = host_id - hosts.length;
+		}
+		console.log(host_id)
+
+		//TODO - Find way to display priority host
+		//Host with firstSeen and lastSeen values with 1 day of eachother
+		//Use HTML Style?
+		
+		// Now to remove the first entry and add the last entry into the
+		// user view.
+		$('.host-entry:first').remove();
+		displayHost(hosts[host_id]);
+		console.log(hosts[host_id]);
+	}
 }
+
+
 
 
 function addAccount(account) {
 	accounts.push(account);
+}
+
+function addHost(host) {
+	hosts.push(host);
+}
+
+function addNetwork(network) {
+	networks.push(network);
 }
 
 
@@ -222,6 +247,16 @@ function report() {
 				addAccount(account);
 				displayAccount(account);
 			})
+		$.getJSON('/networks/list', function(networks) {
+			$.each(networks, function(key, network) {
+				addNetwork(network);
+				displayNetwork(network);
+			})
+		$.getJSON('/hosts/list', function(hosts) {
+			$.each(hosts, function(key, host) {
+				addHost(host);
+				displayHost(host);
+			})
 		});
 		protoRefresh(true);
 	})
@@ -241,21 +276,16 @@ function display() {
 	socket.on('networks', function(network) {
 		networks.push(network);
 	})
-
+	
+	socket.on('hosts', function(host) {
+		hosts.push(host);
+	})
 
 	socket.on('protocols', function(data){
 		protoRefresh();
 	})
 
 
-	socket.on('vulnHosts', function(data){
-		$.getJSON('/vulns/hosts', function(data) {hostVulnList(data)});
-	})
-
-
-	socket.on('topVulns', function(data){
-		$.getJSON('/vulns/vulns', function(data) {topVulnsList(data)});
-	})
 
 
 	$(document).ready(function () {
@@ -268,8 +298,10 @@ function display() {
 			accounts = account_list;
 			renderAccountList();
 		});
-		$.getJSON('/vulns/hosts', function(data) {hostVulnList(data)});
-		$.getJSON('/vulns/vulns', function(data) {topVulnsList(data)});
+		$.getJSON('/hosts/list', function(host_list) {
+			hosts = host_list;
+			renderHostList();
+		});
 		$.getJSON('/networks/list', function(networks_list) { 
                         networks = networks_list; 
                         renderNetworkList(); 
