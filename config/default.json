@@ -7,13 +7,7 @@
 		"ssid": "ShepardsPi",
 		"key": "SHEPARDSPI"
 	},
-	"Airmon": {
-		"interface": "wlan0",
-		"airodump_autostart": true,
-		"interval": 5,
-		"save_handshakes": true,
-		"handshake_path": "/tmp/WallOfSheep/handshakes"
-	},
+	
 	"Database": {
 		"uri": "mysql://sheep:sheep@localhost/sheep",
 		"logging": false
@@ -42,14 +36,20 @@
 			"autostart": true,
 			"nsfw_filter": true
 		},
+		"Airmon": {
+			"interface": "wlan0",
+			"airodump_autostart": true,
+			"interval": 5,
+			"save_handshakes": true,
+			"handshake_path": "/tmp/WallOfSheep/handshakes"
+		},
 		"Ettercap": {
 			"autostart": true
 		},
-		"PVS": {
+		"Nmap": {
 			"autostart": false,
-			"hostname": "PVS_HOSTNAME",
-			"username": "PVS_USERNAME",
-			"password": "PVS_PASSWORD"
+			"subnet": "255.255.255.0",
+			"ports": true
 		}
 	}
 }
