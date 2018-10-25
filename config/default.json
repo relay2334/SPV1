@@ -38,7 +38,7 @@
 		},
 		"Airmon": {
 			"interface": "wlan0",
-			"airodump_autostart": true,
+			"autostart": true,
 			"interval": 5,
 			"save_handshakes": true,
 			"handshake_path": "/tmp/WallOfSheep/handshakes"
