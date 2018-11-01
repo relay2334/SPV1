@@ -38,7 +38,7 @@
 		},
 		"Airmon": {
 			"interface": "wlan0",
-			"autostart": true,
+			"autostart": false,
 			"interval": 5,
 			"save_handshakes": true,
 			"handshake_path": "/tmp/WallOfSheep/handshakes"
@@ -47,9 +47,8 @@
 			"autostart": true
 		},
 		"Nmap": {
-			"autostart": false,
-			"subnet": "255.255.255.0",
-			"ports": true
+			"autostart": true,
+			"target range": "192.168.1.0-100"
 		}
 	}
 }
