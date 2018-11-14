@@ -4,9 +4,9 @@ target=$1
 path="/tmp/nmapSheep1.txt"
 nmap -v --reason -oG $path -p- $target
 
-#Parse Output
+#Parse Output or Pipe
 NMAP_FILE=$path
-egrep -v "^#|Status: Up" $NMAP_FILE | cut -d' ' -f2 -f4- | \
+egrep -v "^#|Status: Up" $NMAP_FILE | cut -d' ' -f 2,4- | \
 sed -n -e 's/Ignored.*//p' | \
 awk -F, '{split($0,a," "); printf "Host: %s*%d\n" , a[1], NF}' \
 | sort -k 5 -g 
