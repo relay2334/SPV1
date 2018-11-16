@@ -73,8 +73,9 @@ Once you have Node.JS installed and the pre-requisites, you simply need to downl
 ````
 cd /opt 
 git clone https://github.com/relay2334/ShepardsPi.git
-cd WallOfSheep 
+cd ShepardsPi
 npm install ./
+chmod 777 lib/parsers/nmapFormat.sh
 ````
 
 Install the appropriate Node.JS database interface library: 
