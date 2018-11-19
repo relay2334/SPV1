@@ -88,7 +88,7 @@ function displayAccount(account, clip=true) {
 function displayHost(host, clip=true) {
 	$('#host-total').html(hosts.length);
 
-	$('#hosts-list > tbody').append(
+	$('#network-hosts > tbody').append(
 		'<tr class="host-entry"><td>' +
 		S(host.ip || '').escapeHTML() 	+ '</td><td>' +
 		S(host.ports || '').escapeHTML() 	+ '</td></tr>'
