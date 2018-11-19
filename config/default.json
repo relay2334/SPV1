@@ -1,7 +1,7 @@
 {
 	"WebUI": {
-		"title": "ExampleTitle",
-		"slogan": "Example Slogan"
+		"title": "ShepardsPi",
+		"slogan": "Digital Cloak"
 	},
 	"Hotspot": {
 		"ssid": "ShepardsPi",
@@ -13,7 +13,7 @@
 		"logging": false
 	},
 	"AppServer": {
-		"port": 3000,
+		"port": 80,
 		"debug": false,
 		"static": "static",
 		"templates": "templates",
@@ -23,9 +23,9 @@
 		"address": "http://localhost:4000"
 	},
 	"Monitoring": {
-		"interface": "eth1",
+		"interface": "wlan0",
 		"Driftnet": {
-			"autostart": true,
+			"autostart": false,
 			"tmp": "/tmp/WallOfSheep/driftnet",
 			"nsfw_filter": true
 		},
@@ -37,7 +37,7 @@
 			"nsfw_filter": true
 		},
 		"Airmon": {
-			"interface": "wlan0",
+			"interface": "wlan1",
 			"autostart": false,
 			"interval": 5,
 			"save_handshakes": true,
@@ -48,7 +48,7 @@
 		},
 		"Nmap": {
 			"autostart": true,
-			"interval": 10,
+			"interval": 30000,
 			"target_range": "192.168.1.0-100"
 		}
 	}
