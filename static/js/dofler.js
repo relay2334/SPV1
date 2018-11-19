@@ -88,7 +88,7 @@ function displayAccount(account, clip=true) {
 function displayHost(host, clip=true) {
 	$('#host-total').html(hosts.length);
 
-	$('#network-hosts > tbody').append(
+	$('#hosts-list > tbody').append(
 		'<tr class="host-entry"><td>' +
 		S(host.ip || '').escapeHTML() 	+ '</td><td>' +
 		S(host.ports || '').escapeHTML() 	+ '</td></tr>'
@@ -104,7 +104,11 @@ function renderAccountList() {
 }
 
 function renderHostList() {
-	for (var i in hosts) {displayHost(hosts[i]);}
+	if (hosts.length > 10) {
+		for (var i in hosts.slice(0,10)) {displayHost(host[i])}
+	} else {
+		for (var i in hosts) {displayHost(host[i])}
+	}
 }
 
 function accountCycle() {
@@ -210,7 +214,7 @@ function display() {
 			renderAccountList();
 		});
 		$.getJSON('/hosts/list', function(host_list) {
-			host = host_list;
+			hosts = host_list;
 			renderHostList();
 		});
 		protoRefresh();
