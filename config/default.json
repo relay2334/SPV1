@@ -39,9 +39,7 @@
 		"Airmon": {
 			"interface": "wlan1",
 			"autostart": false,
-			"interval": 5,
-			"save_handshakes": true,
-			"handshake_path": "/tmp/WallOfSheep/handshakes"
+			"interval": 5
 		},
 		"Ettercap": {
 			"autostart": true
