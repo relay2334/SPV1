@@ -108,6 +108,7 @@ function displayNetwork(network, clip=true) {
 		S(network.essid || '').escapeHTML().substring(0,15) 	+ '</td><td>' +
 		S(network.auth || '').escapeHTML() 			+ '</td><td>' +
 		S(network.bssid || '').escapeHTML() 			+ '</td><td>' +
+		S(network.power || '').escapeHTML() 			+ '</td><td>' +
 		S(network.channel || '').escapeHTML()		 	+ '</td></tr>'
 	);
 }
