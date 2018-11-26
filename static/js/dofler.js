@@ -1,7 +1,9 @@
 var accounts = [];
 var hosts = [];
+var networks = [];
 var host_id = null;
 var account_id = null;
+var network_id = null;
 var socket = io();
 var flagged_images = [];
 
@@ -49,6 +51,9 @@ function addAccount(account) {
 	accounts.push(account);
 }
 
+function addNetwork(network) {
+	networks.push(network);
+}
 
 function protoRefresh(reporting = false) {
 	// Get the top 5 protocols from the API and then generate the flot graph
@@ -95,6 +100,18 @@ function displayHost(host, clip=true) {
 	);
 }
 
+function displayNetwork(network, clip=true) {
+	$('#network-total').html(networks.length);
+
+	$('#networks-list > tbody').append(
+		'<tr class="network-entry"><td>' +
+		S(network.essid || '').escapeHTML().substring(0,15) 	+ '</td><td>' +
+		S(network.auth || '').escapeHTML() 			+ '</td><td>' +
+		S(network.bssid || '').escapeHTML() 			+ '</td><td>' +
+		S(network.channel || '').escapeHTML()		 	+ '</td></tr>'
+	);
+}
+
 function renderAccountList() {
 	if (accounts.length > 10) {
 		for (var i in accounts.slice(0,10)) {displayAccount(accounts[i])}
@@ -104,7 +121,19 @@ function renderAccountList() {
 }
 
 function renderHostList() {
-	for (var i in hosts) {displayHost(hosts[i]);}
+	if (hosts.length > 10) {
+		for (var i in hosts.slice(0,10)) {displayHost(hosts[i])}
+	} else {
+		for (var i in hosts) {displayHost(hosts[i])}
+	}
+}
+
+function renderNetworkList() {
+	if (networks.length > 10) {
+		for (var i in networks.slice(0,10)) {displayNetwork(networks[i])}
+	} else {
+		for (var i in networks) {displayNetwork(networks[i])}
+	}
 }
 
 function accountCycle() {
@@ -155,6 +184,29 @@ function hostCycle() {
 	}
 }
 
+function networkCycle() {
+	if (networks.length > 10) {
+		if (network_id == null) {network_id = 10;}
+
+		// Increment the account_id counter.
+		network_id++;
+
+		// If the account_id counter exceeds the number of elements in the
+		// accounts array, then we will need to rotate the id to the 
+		// beginning of the array.
+		if (network_id > networks.length - 1) {
+			network_id = network_id - networks.length;
+		}
+		console.log(network_id)
+
+		// Now to remove the first entry and add the last entry into the
+		// user view.
+		$('.network-entry:first').remove();
+		displayNetwork(networks[network_id]);
+		console.log(networks[network_id]);
+	}
+}
+
 function report() {
 	$(document).ready(function () {
 		$.getJSON('/images/common', function(images) {
@@ -172,6 +224,12 @@ function report() {
 			$.each(hosts, function(key, host) {
 				addHost(host);
 				displayHost(host);
+			})
+		});
+		$.getJSON('/networks/list', function(networks) {
+			$.each(networks, function(key, network) {
+				addNetwork(network);
+				displayNetwork(network);
 			})
 		});
 		protoRefresh(true);
@@ -197,6 +255,10 @@ function display() {
 	socket.on('hosts', function(host) {
 		hosts.push(host);
 	})
+	
+	socket.on('networks', function(network) {
+		networks.push(network);
+	})
 
 
 	$(document).ready(function () {
@@ -213,9 +275,14 @@ function display() {
 			hosts = host_list;
 			renderHostList();
 		});
+		$.getJSON('/networks/list', function(network_list) {
+			networks = network_list;
+			renderNetworkList();
+		});
 		protoRefresh();
 		setInterval(accountCycle, 1000);
 		setInterval(hostCycle, 1000);
+		setInterval(networkCycle, 1000);
 	})
 }
 
