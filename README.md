@@ -1,14 +1,6 @@
 # Shepards Pi
 
-#!/bin/bash
-sudo apt-get install ngrep ettercap-text-only tshark aircrack-ng nmap
-sudo apt-get install mariadb-client mariadb-server
-cd /opt 
-git clone https://github.com/relay2334/ShepardsPi.git
-cd ShepardsPi
-npm install ./
-chmod 777 lib/parsers/nmapFormat.sh
-mysql_secure_installation
+
 
 
 ## Introduction
